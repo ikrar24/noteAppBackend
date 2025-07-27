@@ -1,4 +1,4 @@
-import Express from "express"
+import express from "express"
 import connectDB from "./Database/Connetion/mongoDbConnetion.js"
 import cors from "cors"
 import UserRoute from "./Database/Modals/User/UserRoutes.js"
@@ -13,12 +13,12 @@ import cookieParser from "cookie-parser";
 connectDB()
 
 
-const app = Express()
+const app = express()
 const PORT = process.env.PORT || 8000;
 
 
-app.use(Express.json());
-app.use(Express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors()); 
 app.use(cookieParser());
 
