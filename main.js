@@ -29,14 +29,14 @@ app.get("/" ,(req, res )=>{
 
 
 // CRUD of User 
-app.use("api/user" , UserRoute)
+app.use("/api/user" , UserRoute)
 
 // user Login hare 
-app.post("api/login" , UserLogin)
+app.post("/api/login" , UserLogin)
 
 
 // Create notes 
-app.use("api/notes", NoteRoutes)
+app.use("/api/notes", NoteRoutes)
 
 
 
