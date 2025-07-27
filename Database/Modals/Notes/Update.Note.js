@@ -1,4 +1,4 @@
-import deleteImg from "../../Cloudinary/DeleteImg";
+import deleteImg from "../../Cloudinary/DeleteImg.js";
 import NoteSchema from "../../Schema/Notes.Schema.js"
 
 const UpdateNote = async (req, res) => {
