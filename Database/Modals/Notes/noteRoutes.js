@@ -1,10 +1,15 @@
 import  Express  from "express";
 import uploadNotes from "../../Cloudinary/Note.Config.Cloudinary.js";
 import CreateNote from "./Create.Note.js";
+import DeleteNote from "./Delete.Note.js";
+import UpdateNote from "./Update.Note.js";
 
 const NoteRoutes = Express.Router();
 
 NoteRoutes.post("/" , uploadNotes.array("noteImage", 5) , CreateNote )
 
+NoteRoutes.put("/:id" , uploadNotes.array("noteImage", 5) , UpdateNote )
+
+NoteRoutes.delete("/", DeleteNote)
 
 export default NoteRoutes;

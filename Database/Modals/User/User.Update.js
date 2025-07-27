@@ -6,10 +6,6 @@ const UpdateUserImg = async (req, res) => {
     const { fullName, filename } = req.body;
     const profileImage = req.file?.path;
 
-    console.log("BODY:", req.body);
-console.log("FILE:", req.file);
-
-
 
     if (filename) {
       await deleteImg(filename);
