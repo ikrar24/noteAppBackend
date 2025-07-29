@@ -9,6 +9,15 @@ import cookieParser from "cookie-parser";
 
 
 
+
+// origin and cookie set 
+const corsOptions = {
+  origin: function (origin, callback) {
+    callback(null, true); 
+  },
+  credentials: true 
+};
+
 // Mongo DB Connection 
 connectDB()
 
@@ -19,7 +28,7 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors()); 
+app.use(cors(corsOptions)); 
 app.use(cookieParser());
 
 

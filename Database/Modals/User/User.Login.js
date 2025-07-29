@@ -2,6 +2,7 @@ import UserSchema from "../../Schema/User.Schema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+
 const UserLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -27,13 +28,17 @@ const UserLogin = async (req, res) => {
     );
 
    
-
     res.cookie("authToken", jwtToken, {
       httpOnly: true,  
       secure: true,    
       maxAge: 30 * 24 * 60 * 60 * 1000,
       sameSite: 'strict'
     })
+
+
+
+ 
+
 
 
     const { password: removed, ...UserData } = User._doc;

@@ -11,6 +11,9 @@ const CreateNote = async (req, res) => {
 
  const token = req.cookies.authToken;
 
+ console.log(token);
+ 
+
  if (!token) {
  return res.status(401).json({ message: "You're not an authorized user" });
  }
@@ -18,7 +21,15 @@ const CreateNote = async (req, res) => {
  // ✅ Decode token
  const decoded = jwt.verify(token, process.env.TOKEN_SECRETE);
 
- const authUserId = decoded.userId; // ✅ Make sure payload me userId bheja tha
+
+ 
+
+ const authUserId = decoded.userID;
+console.log(authUserId);
+
+
+ 
+
 
  // ✅ Validation
  if (!title || !allDecriptions) {
@@ -35,22 +46,26 @@ if (image.length > 5) {
  return res.status(400).json({ message: "Maximum 5 images allowed" });
  }
 
- // ✅ Create Note
- const note = await NoteSchema.create({
- title,
-allDecriptions,
- image,
- createdBy: authUserId // helpful for reference
- });
 
- // ✅ Push note._id into UserSchema.notes array
- await UserSchema.findByIdAndUpdate(
- authUserId,
-{
- $push: { notes: note._id },
- },
- { new: true }
- );
+// ✅ Create note
+const note = await NoteSchema.create({
+  title,
+  allDecriptions,
+  image,
+  createdBy: authUserId
+});
+
+// ✅ Add note to user.notes array
+const updatedUser = await UserSchema.findByIdAndUpdate(
+  authUserId,
+  { $push: { notes: note._id } },
+  { new: true }
+).populate("notes");
+
+console.log("✅ Updated User:", updatedUser);
+
+
+
 
  res.status(201).json({
  message: "Note created successfully",

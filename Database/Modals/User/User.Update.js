@@ -3,23 +3,38 @@ import UseSchema from "../../Schema/User.Schema.js";
 
 const UpdateUserImg = async (req, res) => {
   try {
-    const { fullName, filename } = req.body;
-    const profileImage = req.file?.path;
+    const { fullName, filename , bio } = req.body;
+    const file = req.file;
 
-
-    if (filename) {
-      await deleteImg(filename);
-    }
-
+    // Prepare updated data object
     const updatedData = {};
     if (fullName) updatedData.fullName = fullName;
-    if (profileImage) updatedData.profileImage = profileImage;
+    if (bio) updatedData.bio = bio;
+
+    if (filename) {
+      // Delete old image from Cloudinary
+      await deleteImg(filename , updatedData);
+    }
+
+    if (file) {
+      updatedData.profileImage = {
+        Image: file.path,
+        imageName: file.filename,
+      };
+    }
 
     const updatedUser = await UseSchema.findByIdAndUpdate(
       req.params.id,
       updatedData,
       { new: true }
     );
+
+console.log("BODY", req.body);
+console.log("FILE", req.file);
+console.log("UPDATED DATA", updatedData);
+
+
+
 
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
