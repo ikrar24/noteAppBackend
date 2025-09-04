@@ -30,5 +30,5 @@ It provides authentication, user management, and CRUD operations for personal no
 
 ---
 
-## 📂 Project Structure (Overview)
+
 
